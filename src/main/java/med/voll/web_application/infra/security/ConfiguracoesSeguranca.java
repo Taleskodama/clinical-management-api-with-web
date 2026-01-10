@@ -46,6 +46,8 @@ public class ConfiguracoesSeguranca {
                         .permitAll())
                 .logout(logout -> logout.logoutSuccessUrl("/login?logout")
                         .permitAll())
+                .rememberMe(rememberMe ->rememberMe.key("lembrarDeMim")
+                        .alwaysRemember(true))
                 .build();
     }
 }
