@@ -21,16 +21,18 @@ public class ConfiguracoesSeguranca {
     public SecurityFilterChain filtrosSeguranca(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/css/**", "/js/**", "/assets/**").permitAll();
+                    req.requestMatchers("/css/**", "/js/**", "/assets/**", "/", "/index", "/home").permitAll();
                     req.anyRequest().authenticated();
                 })
                 .formLogin(form -> form.loginPage("/login")
                         .defaultSuccessUrl("/")
                         .permitAll())
-                .logout(logout -> logout.logoutSuccessUrl("/login?logout")
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll())
-                .rememberMe(rememberMe ->rememberMe.key("lembrarDeMim")
-                        .alwaysRemember(true))
+                .rememberMe(rememberMe -> rememberMe.key("lembrarDeMim")
+                        .alwaysRemember(true)
+                )
                 .csrf(Customizer.withDefaults())
                 .build();
     }
